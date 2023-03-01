@@ -14,6 +14,9 @@
 		7B9631B929AE6DA9002854E6 /* healthy_test_projectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9631B829AE6DA9002854E6 /* healthy_test_projectTests.swift */; };
 		7B9631C329AE6DA9002854E6 /* healthy_test_projectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9631C229AE6DA9002854E6 /* healthy_test_projectUITests.swift */; };
 		7B9631C529AE6DA9002854E6 /* healthy_test_projectUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9631C429AE6DA9002854E6 /* healthy_test_projectUITestsLaunchTests.swift */; };
+		7B9631D329AE6F2D002854E6 /* GetCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9631D229AE6F2D002854E6 /* GetCountry.swift */; };
+		7BB51F7029AEAC7000EDA20D /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 7BB51F6F29AEAC7000EDA20D /* SwiftyJSON */; };
+		7BB51F7329AEBE4400EDA20D /* CountryNameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB51F7229AEBE4400EDA20D /* CountryNameModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,8 @@
 		7B9631BE29AE6DA9002854E6 /* healthy test projectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "healthy test projectUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B9631C229AE6DA9002854E6 /* healthy_test_projectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = healthy_test_projectUITests.swift; sourceTree = "<group>"; };
 		7B9631C429AE6DA9002854E6 /* healthy_test_projectUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = healthy_test_projectUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		7B9631D229AE6F2D002854E6 /* GetCountry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCountry.swift; sourceTree = "<group>"; };
+		7BB51F7229AEBE4400EDA20D /* CountryNameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryNameModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BB51F7029AEAC7000EDA20D /* SwiftyJSON in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +100,8 @@
 		7B9631A629AE6DA4002854E6 /* healthy test project */ = {
 			isa = PBXGroup;
 			children = (
+				7BB51F7129AEBE1400EDA20D /* Model */,
+				7B9631D129AE6EDC002854E6 /* View */,
 				7B9631A729AE6DA4002854E6 /* healthy_test_projectApp.swift */,
 				7B9631A929AE6DA4002854E6 /* ContentView.swift */,
 				7B9631AB29AE6DA9002854E6 /* Assets.xcassets */,
@@ -127,6 +135,22 @@
 			path = "healthy test projectUITests";
 			sourceTree = "<group>";
 		};
+		7B9631D129AE6EDC002854E6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7B9631D229AE6F2D002854E6 /* GetCountry.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7BB51F7129AEBE1400EDA20D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7BB51F7229AEBE4400EDA20D /* CountryNameModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +167,9 @@
 			dependencies = (
 			);
 			name = "healthy test project";
+			packageProductDependencies = (
+				7BB51F6F29AEAC7000EDA20D /* SwiftyJSON */,
+			);
 			productName = "healthy test project";
 			productReference = 7B9631A429AE6DA4002854E6 /* healthy test project.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +242,9 @@
 				Base,
 			);
 			mainGroup = 7B96319B29AE6DA4002854E6;
+			packageReferences = (
+				7BB51F6E29AEAC7000EDA20D /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+			);
 			productRefGroup = 7B9631A529AE6DA4002854E6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -259,6 +289,8 @@
 			files = (
 				7B9631AA29AE6DA4002854E6 /* ContentView.swift in Sources */,
 				7B9631A829AE6DA4002854E6 /* healthy_test_projectApp.swift in Sources */,
+				7B9631D329AE6F2D002854E6 /* GetCountry.swift in Sources */,
+				7BB51F7329AEBE4400EDA20D /* CountryNameModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,6 +609,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7BB51F6E29AEAC7000EDA20D /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7BB51F6F29AEAC7000EDA20D /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7BB51F6E29AEAC7000EDA20D /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7B96319C29AE6DA4002854E6 /* Project object */;
 }

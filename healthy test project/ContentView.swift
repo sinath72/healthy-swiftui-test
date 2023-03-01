@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var p:[countryName]?
     var body: some View {
         VStack {
+            let _: () = Country().Get()
+            
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
             Text("Hello, world!")
+            
         }
         .padding()
     }
