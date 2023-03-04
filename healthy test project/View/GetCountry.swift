@@ -39,7 +39,7 @@ struct Country{
         task.resume()
         session.finishTasksAndInvalidate()
     }
-    func getDetails(name:String,Compilition:@escaping(String,String,String,String,String,String,String,String) -> ()){
+    func getDetails(name:String,Compilition:@escaping(String,String,String,String,String,String,String,String,String) -> ()){
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
         guard let URLL = URL(string: "https://restcountries.com/v3.1//name/\(name.lowercased())") else { return}
@@ -52,7 +52,6 @@ struct Country{
                 let statusCode = (response as! HTTPURLResponse).statusCode
                 print("URL Session Task Succeeded: HTTP \(statusCode)")
                 let responseString = try? JSON(data!)
-                print(responseString)
                 let count = responseString!.count - 1
                 var id = 0
                 for i in 0...count{
@@ -69,6 +68,7 @@ struct Country{
                 var Subregion:String = ""
                 var CarSide:String = ""
                 var TimeZone:String = ""
+                var Population:String = responseString![id]["population"].description
                 NameOfficial = responseString![id]["name"]["official"].description
                 IMG = responseString![id]["flags"]["png"].description
                 IDD = responseString![id]["idd"]["root"].description + responseString![id]["idd"]["suffixes"][0].description
@@ -77,9 +77,8 @@ struct Country{
                 Subregion = responseString![id]["subregion"].description
                 CarSide = responseString![id]["car"]["side"].description
                 TimeZone = responseString![id]["timezones"][0].description
-                print(TimeZone)
                 DispatchQueue.main.async {
-                    Compilition(NameOfficial,IMG,IDD,Capital,Region,Subregion,CarSide,TimeZone)
+                    Compilition(NameOfficial,IMG,IDD,Capital,Region,Subregion,CarSide,TimeZone,Population)
                 }
             }
             else {

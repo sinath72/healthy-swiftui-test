@@ -17,6 +17,7 @@ struct country_details: View {
     @State  private var Subregion:String?
     @State  private var CarSide:String?
     @State  private var TimeZone:String?
+    @State  private var Population:String?
     var body: some View {
         VStack(alignment: .trailing) {
             NavigationView {
@@ -55,6 +56,10 @@ struct country_details: View {
                             Text(CarSide ?? "0")
                         }
                         HStack(alignment: .center,spacing: 8.0) {
+                            Text("Population of Country:").font(.custom("regular", size: 12.0))
+                            Text(Population ?? "0")
+                        }
+                        HStack(alignment: .center,spacing: 8.0) {
                             Text("TimeZone of Country:").font(.custom("regular", size: 12.0))
                             Text(TimeZone ?? "0")
                         }
@@ -62,7 +67,7 @@ struct country_details: View {
                 }
             }.onAppear{
                 DispatchQueue.main.async {
-                    Country().getDetails(name: name!, Compilition:{(official,img,idd,capital,region,suregion,carside,timezone) in
+                    Country().getDetails(name: name!, Compilition:{(official,img,idd,capital,region,suregion,carside,timezone,population) in
                         Official = official
                         IMG = img
                         IDD = idd
@@ -71,6 +76,7 @@ struct country_details: View {
                         Subregion = suregion
                         CarSide = carside
                         TimeZone = timezone
+                        Population = population
                     })
                 }
             }.navigationTitle("\(name!) Details")

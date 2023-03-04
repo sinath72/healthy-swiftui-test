@@ -29,7 +29,6 @@ struct CovidDetails{
                     arrayDataURL.append(responseString![i]["moreData"].description)
                 }
                 DispatchQueue.main.async {
-                    print("response = ",responseString)
                     Compilition(arrayNames,arrayDataURL)
                 }
             }
