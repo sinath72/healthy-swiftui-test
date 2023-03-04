@@ -53,6 +53,14 @@ struct Country{
                 print("URL Session Task Succeeded: HTTP \(statusCode)")
                 let responseString = try? JSON(data!)
                 print(responseString)
+                let count = responseString!.count - 1
+                var id = 0
+                for i in 0...count{
+                    if responseString![i]["name"]["common"].description == name{
+                        print("find \(i)")
+                        id = i
+                    }
+                }
                 var NameOfficial:String = ""
                 var IMG:String = ""
                 var IDD:String = ""
@@ -61,14 +69,14 @@ struct Country{
                 var Subregion:String = ""
                 var CarSide:String = ""
                 var TimeZone:String = ""
-                NameOfficial = responseString![0]["name"]["official"].description
-                IMG = responseString![0]["flags"]["png"].description
-                IDD = responseString![0]["idd"]["root"].description + responseString![0]["idd"]["suffixes"][0].description
-                Capital = responseString![0]["capital"][0].description
-                Region = responseString![0]["region"].description
-                Subregion = responseString![0]["subregion"].description
-                CarSide = responseString![0]["car"]["side"].description
-                TimeZone = responseString![0]["timezones"][0].description
+                NameOfficial = responseString![id]["name"]["official"].description
+                IMG = responseString![id]["flags"]["png"].description
+                IDD = responseString![id]["idd"]["root"].description + responseString![id]["idd"]["suffixes"][0].description
+                Capital = responseString![id]["capital"][0].description
+                Region = responseString![id]["region"].description
+                Subregion = responseString![id]["subregion"].description
+                CarSide = responseString![id]["car"]["side"].description
+                TimeZone = responseString![id]["timezones"][0].description
                 print(TimeZone)
                 DispatchQueue.main.async {
                     Compilition(NameOfficial,IMG,IDD,Capital,Region,Subregion,CarSide,TimeZone)
