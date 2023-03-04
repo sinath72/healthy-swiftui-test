@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5AA2BCCF29B2C15900ED706D /* country_details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA2BCCE29B2C15900ED706D /* country_details.swift */; };
+		5AA2BCD329B2F19D00ED706D /* 2nd View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA2BCD229B2F19D00ED706D /* 2nd View.swift */; };
 		7B9631A829AE6DA4002854E6 /* healthy_test_projectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9631A729AE6DA4002854E6 /* healthy_test_projectApp.swift */; };
 		7B9631AA29AE6DA4002854E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9631A929AE6DA4002854E6 /* ContentView.swift */; };
 		7B9631AC29AE6DA9002854E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B9631AB29AE6DA9002854E6 /* Assets.xcassets */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5AA2BCCE29B2C15900ED706D /* country_details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = country_details.swift; sourceTree = "<group>"; };
+		5AA2BCD229B2F19D00ED706D /* 2nd View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2nd View.swift"; sourceTree = "<group>"; };
 		7B9631A429AE6DA4002854E6 /* healthy test project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "healthy test project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B9631A729AE6DA4002854E6 /* healthy_test_projectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = healthy_test_projectApp.swift; sourceTree = "<group>"; };
 		7B9631A929AE6DA4002854E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -106,6 +110,8 @@
 				7B9631A929AE6DA4002854E6 /* ContentView.swift */,
 				7B9631AB29AE6DA9002854E6 /* Assets.xcassets */,
 				7B9631AD29AE6DA9002854E6 /* Preview Content */,
+				5AA2BCCE29B2C15900ED706D /* country_details.swift */,
+				5AA2BCD229B2F19D00ED706D /* 2nd View.swift */,
 			);
 			path = "healthy test project";
 			sourceTree = "<group>";
@@ -291,6 +297,8 @@
 				7B9631A829AE6DA4002854E6 /* healthy_test_projectApp.swift in Sources */,
 				7B9631D329AE6F2D002854E6 /* GetCountry.swift in Sources */,
 				7BB51F7329AEBE4400EDA20D /* CountryNameModel.swift in Sources */,
+				5AA2BCD329B2F19D00ED706D /* 2nd View.swift in Sources */,
+				5AA2BCCF29B2C15900ED706D /* country_details.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

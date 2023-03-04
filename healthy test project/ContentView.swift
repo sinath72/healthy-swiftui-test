@@ -9,16 +9,28 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var p:[countryName]?
+    @State var CountryName:[String]?
     var body: some View {
-        VStack {
-            let _: () = Country().Get()
-            
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-            
+        VStack(alignment: .trailing){
+            NavigationView{
+                Color.blue
+                    .ignoresSafeArea()
+                    .overlay{
+                        
+                    List{
+                        let count = CountryName?.count ?? 0
+                        ForEach(0..<count,id: \.self){ i in
+                            NavigationLink(destination:country_details(name: CountryName![i].description)){
+                                Text(CountryName![i].description)
+                            }
+                        }
+                    }.onAppear{
+                        Country().Get { CountryArray in
+                            CountryName = CountryArray
+                        }
+                    }
+                }
+            }
         }
         .padding()
     }

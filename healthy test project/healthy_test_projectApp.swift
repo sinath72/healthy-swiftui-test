@@ -11,7 +11,16 @@ import SwiftUI
 struct healthy_test_projectApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView {
+                ContentView()
+                    .tabItem({
+                        Text("main")
+                    })
+                s2nd_View()
+                    .tabItem({
+                        Text("another View")
+                    })
+            }
         }
     }
 }
