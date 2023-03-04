@@ -14,11 +14,15 @@ struct healthy_test_projectApp: App {
             TabView {
                 Covid_Countries()
                     .tabItem({
-                        Text("another View")
+                        Text("Covid Countries").font(.custom("regular", size: 16.0))
+                        Image(systemName: "global.fill")
+                        .padding()
                     })
                 ContentView()
                     .tabItem({
-                        Text("main")
+                        Text("Country Details").font(.custom("regular", size: 16.0))
+                        Image(systemName: "global")
+                            .padding()
                     })
             }
         }

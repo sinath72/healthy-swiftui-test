@@ -68,7 +68,7 @@ struct Country{
                 var Subregion:String = ""
                 var CarSide:String = ""
                 var TimeZone:String = ""
-                var Population:String = responseString![id]["population"].description
+                let Population:String = responseString![id]["population"].description
                 NameOfficial = responseString![id]["name"]["official"].description
                 IMG = responseString![id]["flags"]["png"].description
                 IDD = responseString![id]["idd"]["root"].description + responseString![id]["idd"]["suffixes"][0].description
