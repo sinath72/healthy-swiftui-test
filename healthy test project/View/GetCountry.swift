@@ -57,8 +57,8 @@ struct Country{
                 var id = 0
                 for i in 0...count{
                     if responseString![i]["name"]["common"].description == name{
-                        print("find \(i)")
                         id = i
+                        break
                     }
                 }
                 var NameOfficial:String = ""
