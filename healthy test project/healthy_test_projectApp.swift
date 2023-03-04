@@ -16,7 +16,7 @@ struct healthy_test_projectApp: App {
                     .tabItem({
                         Text("main")
                     })
-                s2nd_View()
+                Covid_Countries()
                     .tabItem({
                         Text("another View")
                     })

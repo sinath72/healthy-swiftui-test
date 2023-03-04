@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    
-    @State var CountryName:[String]?
+struct ContentView: View {    
+    @State private var CountryName:[String]?
     var body: some View {
         VStack(alignment: .trailing){
             NavigationView{
