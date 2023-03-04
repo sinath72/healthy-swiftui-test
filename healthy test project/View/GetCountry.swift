@@ -22,7 +22,7 @@ struct Country{
                 // Success
                 let statusCode = (response as! HTTPURLResponse).statusCode
                 let responseString = try? JSON(data!)
-                let count = responseString!.count
+                let count = responseString!.count - 1
                 var arrayNames:[String] = []
                 for i in 0...count{
                     arrayNames.append(responseString![i]["name"]["common"].description)

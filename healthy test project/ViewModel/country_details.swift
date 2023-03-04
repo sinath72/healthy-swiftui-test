@@ -73,8 +73,8 @@ struct country_details: View {
                         TimeZone = timezone
                     })
                 }
-
-            }
+            }.navigationTitle("\(name!) Details")
+                .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

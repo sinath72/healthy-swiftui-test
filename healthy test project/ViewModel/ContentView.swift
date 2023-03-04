@@ -15,20 +15,20 @@ struct ContentView: View {
                 Color.blue
                     .ignoresSafeArea()
                     .overlay{
-                        
-                    List{
-                        let count = CountryName?.count ?? 0
-                        ForEach(0..<count,id: \.self){ i in
-                            NavigationLink(destination:country_details(name: CountryName![i].description)){
-                                Text(CountryName![i].description)
+                        List{
+                            let count = CountryName?.count ?? 0
+                            ForEach(0..<count,id: \.self){ i in
+                                NavigationLink(destination:country_details(name: CountryName![i].description)){
+                                    Text(CountryName![i].description)
+                                }
                             }
-                        }
-                    }.onAppear{
-                        Country().Get { CountryArray in
-                            CountryName = CountryArray
-                        }
+                        }.onAppear{
+                            Country().Get { CountryArray in
+                                CountryName = CountryArray
+                            }
+                        }.navigationTitle("Country List")
+                            .navigationBarTitleDisplayMode(.inline)
                     }
-                }
             }
         }
         .padding()

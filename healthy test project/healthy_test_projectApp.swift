@@ -12,13 +12,13 @@ struct healthy_test_projectApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                ContentView()
-                    .tabItem({
-                        Text("main")
-                    })
                 Covid_Countries()
                     .tabItem({
                         Text("another View")
+                    })
+                ContentView()
+                    .tabItem({
+                        Text("main")
                     })
             }
         }

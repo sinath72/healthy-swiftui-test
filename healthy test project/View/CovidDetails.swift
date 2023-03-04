@@ -21,7 +21,7 @@ struct CovidDetails{
                 // Success
                 let statusCode = (response as! HTTPURLResponse).statusCode
                 let responseString = try? JSON(data!)
-                let count = responseString!.count
+                let count = responseString!.count - 1
                 var arrayNames:[String] = []
                 var arrayDataURL:[String] = []
                 for i in 0...count{
@@ -29,6 +29,7 @@ struct CovidDetails{
                     arrayDataURL.append(responseString![i]["moreData"].description)
                 }
                 DispatchQueue.main.async {
+                    print("response = ",responseString)
                     Compilition(arrayNames,arrayDataURL)
                 }
             }
@@ -40,7 +41,35 @@ struct CovidDetails{
         task.resume()
         session.finishTasksAndInvalidate()
     }
-    func getCountryCovidDetails(cname:String){
-        
+    func getCountryCovidDetails(url:String,Compilition:@escaping(String,String,String,String,String,String,String) -> ()){
+        let sessionConfig = URLSessionConfiguration.default
+        let session = URLSession(configuration: sessionConfig)
+        guard let URLL = URL(string: url) else { return}
+        let request = NSMutableURLRequest(url: URLL)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let task = session.dataTask(with: request as URLRequest) { (data: Data?, response: URLResponse?, error: Error?) in
+            if (error == nil) {
+                // Success
+                let statusCode = (response as! HTTPURLResponse).statusCode
+                let responseString = try? JSON(data!)
+                let infected = responseString!["infected"].description
+                let deceased = responseString!["deceased"].description
+                let recovered = responseString!["recovered"].description
+                let activeCase = responseString!["activeCases"].description
+                let tested = responseString!["tested"].description
+                let critical = responseString!["critical"].description
+                let lastUpdatedAtApify = responseString!["lastUpdatedAtApify"].description
+                DispatchQueue.main.async {
+                    Compilition(infected,deceased,recovered,activeCase,tested,critical,lastUpdatedAtApify)
+                }
+            }
+            else {
+                // Failure
+                
+            }
+        }
+        task.resume()
+        session.finishTasksAndInvalidate()
     }
 }

@@ -19,7 +19,7 @@ struct Covid_Countries: View {
                         List{
                             let count = CountryNames?.count ?? 0
                             ForEach(0..<count,id: \.self){ i in
-                                NavigationLink(destination: CovidCountryDetails(url: url![i].description)) {
+                                NavigationLink(destination: CovidCountryDetails(url: url![i].description,name: CountryNames![i].description)) {
                                     Text(CountryNames![i].description)
                                 }
                             }
@@ -29,7 +29,8 @@ struct Covid_Countries: View {
                                 self.url = url
                             }
                         }
-                    }
+                    }.navigationTitle("Covid Countries")
+                    .navigationBarTitleDisplayMode(.inline)
             }
         }
     }
