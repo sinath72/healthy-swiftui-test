@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {    
     @State private var CountryName:[String]?
+    @State private var CountryFlags:[String]?
     var body: some View {
         VStack(alignment: .trailing){
             NavigationView{
@@ -19,12 +20,16 @@ struct ContentView: View {
                             let count = CountryName?.count ?? 0
                             ForEach(0..<count,id: \.self){ i in
                                 NavigationLink(destination:country_details(name: CountryName![i].description)){
-                                    Text(CountryName![i].description)
+                                    HStack(spacing:8.0){
+                                        AsyncImage(url: URL(string: CountryFlags![i].description),scale: 8.0)
+                                        Text(CountryName![i].description)
+                                    }
                                 }
                             }
                         }.onAppear{
-                            Country().Get { CountryArray in
+                            Country().Get { CountryArray ,FlagsUrl in
                                 CountryName = CountryArray
+                                CountryFlags = FlagsUrl
                             }
                         }.navigationTitle("Country List")
                             .navigationBarTitleDisplayMode(.inline)

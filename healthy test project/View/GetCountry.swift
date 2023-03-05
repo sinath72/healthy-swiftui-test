@@ -10,7 +10,7 @@ import SwiftUI
 import SwiftyJSON
 struct Country{
     var NameArray:[String] = []
-    func Get(Compilition:@escaping([String]) -> ()){
+    func Get(Compilition:@escaping([String],[String]) -> ()){
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
         guard let URLL = URL(string: "https://restcountries.com/v3.1/all") else { return}
@@ -24,11 +24,14 @@ struct Country{
                 let responseString = try? JSON(data!)
                 let count = responseString!.count - 1
                 var arrayNames:[String] = []
+                var FlagsURL:[String] = []
                 for i in 0...count{
                     arrayNames.append(responseString![i]["name"]["common"].description)
+                    FlagsURL.append(responseString![i]["flags"]["png"].description)
+                    
                 }
                 DispatchQueue.main.async {
-                    Compilition(arrayNames)
+                    Compilition(arrayNames,FlagsURL)
                 }
             }
             else {
