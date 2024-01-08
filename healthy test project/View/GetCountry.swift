@@ -7,89 +7,102 @@
 
 import Foundation
 import SwiftUI
-import SwiftyJSON
-struct Country{
+protocol CountryProtocol:View{
+    func getData(data:[CountryInfo])
+    func errors(eroor:Error)
+}
+protocol CountryDetailsProtocol:View{
+    func getData(data:CountryInfo)
+    func errors(eroor:Error)
+}
+enum GetMode{
+    case minimal
+    case full
+}
+class Country{
+    var simpleCountryDelegate:(any CountryProtocol)?
+    var fullCountryDetailsDelegates:(any CountryDetailsProtocol)?
     var NameArray:[String] = []
-    func Get(Compilition:@escaping([String],[String]) -> ()){
-        let sessionConfig = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfig)
-        guard let URLL = URL(string: "https://restcountries.com/v3.1/all") else { return}
-        let request = NSMutableURLRequest(url: URLL)
-        request.httpMethod = "GET"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let task = session.dataTask(with: request as URLRequest) { (data: Data?, response: URLResponse?, error: Error?) in
-            if (error == nil) {
-                // Success
-                let statusCode = (response as! HTTPURLResponse).statusCode
-                let responseString = try? JSON(data!)
-                let count = responseString!.count - 1
-                var arrayNames:[String] = []
-                var FlagsURL:[String] = []
-                for i in 0...count{
-                    arrayNames.append(responseString![i]["name"]["common"].description)
-                    FlagsURL.append(responseString![i]["flags"]["png"].description)
-                    
-                }
-                DispatchQueue.main.async {
-                    Compilition(arrayNames,FlagsURL)
-                }
+    private func setUrl(_ type:GetMode,_ name:String = "") -> URL?{
+        switch type {
+        case .minimal:
+            guard let URLL = URL(string: "https://restcountries.com/v3.1/all") else { return nil}
+            return URLL
+        case .full:
+            if name != ""{
+                guard let URLL = URL(string: "https://restcountries.com/v3.1//name/\(name.lowercased())") else { return nil}
+                return URLL
             }
-            else {
-                // Failure
-                
+            else{
+                return nil
             }
         }
-        task.resume()
-        session.finishTasksAndInvalidate()
     }
-    func getDetails(name:String,Compilition:@escaping(String,String,String,String,String,String,String,String,String) -> ()){
-        let sessionConfig = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfig)
-        guard let URLL = URL(string: "https://restcountries.com/v3.1//name/\(name.lowercased())") else { return}
-        let request = NSMutableURLRequest(url: URLL)
+    private func setRequest(_ url:URL) -> NSMutableURLRequest{
+        let request = NSMutableURLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let task = session.dataTask(with: request as URLRequest) { (data: Data?, response: URLResponse?, error: Error?) in
-            if (error == nil) {
-                // Success
-                let statusCode = (response as! HTTPURLResponse).statusCode
-                print("URL Session Task Succeeded: HTTP \(statusCode)")
-                let responseString = try? JSON(data!)
-                let count = responseString!.count - 1
-                var id = 0
-                for i in 0...count{
-                    if responseString![i]["name"]["common"].description == name{
-                        id = i
-                        break
-                    }
+        return request
+    }
+    private func getSession() -> URLSession{
+        let sessionConfig = URLSessionConfiguration.default
+        let session = URLSession(configuration: sessionConfig)
+        return session
+    }
+    func Get(){
+        let session = getSession()
+        let URLL = setUrl(.minimal)
+        if let URLL = URLL{
+            let request = setRequest(URLL)
+            session.dataTask(with: request as URLRequest) { (data: Data?, response: URLResponse?, error: Error?) in
+                if (error == nil) {
+                    // Success
+                    let statusCode = (response as! HTTPURLResponse).statusCode
+                    let responseString = try? JSONDecoder().decode([CountryInfo].self, from: data!)
+                    self.simpleCountryDelegate?.getData(data: responseString!)
                 }
-                var NameOfficial:String = ""
-                var IMG:String = ""
-                var IDD:String = ""
-                var Capital:String = ""
-                var Region:String = ""
-                var Subregion:String = ""
-                var CarSide:String = ""
-                var TimeZone:String = ""
-                let Population:String = responseString![id]["population"].description
-                NameOfficial = responseString![id]["name"]["official"].description
-                IMG = responseString![id]["flags"]["png"].description
-                IDD = responseString![id]["idd"]["root"].description + responseString![id]["idd"]["suffixes"][0].description
-                Capital = responseString![id]["capital"][0].description
-                Region = responseString![id]["region"].description
-                Subregion = responseString![id]["subregion"].description
-                CarSide = responseString![id]["car"]["side"].description
-                TimeZone = responseString![id]["timezones"][0].description
-                DispatchQueue.main.async {
-                    Compilition(NameOfficial,IMG,IDD,Capital,Region,Subregion,CarSide,TimeZone,Population)
+                else {
+                    // Failure
+                    self.simpleCountryDelegate?.errors(eroor: error!)
                 }
-            }
-            else {
-                // Failure
-                
-            }
+            }.resume()
+            session.finishTasksAndInvalidate()
         }
-        task.resume()
-        session.finishTasksAndInvalidate()
+        else{
+            print("Somthing Wrong")
+        }
+    }
+    func getDetails(name:String){
+        let session = getSession()
+        let URLL = setUrl(.full,name)
+        if let URLL = URLL{
+            let request = setRequest(URLL)
+            session.dataTask(with: request as URLRequest) { (data: Data?, response: URLResponse?, error: Error?) in
+                if (error == nil) {
+                    // Success
+                    let statusCode = (response as! HTTPURLResponse).statusCode
+                    print("URL Session Task Succeeded: HTTP \(statusCode)")
+                    let responseString = try? JSONDecoder().decode([CountryInfo].self, from: data!)
+                    let count = responseString!.count - 1
+                    var id = 0
+                    for i in 0...count{
+                        if responseString![i].name.common == name{
+                            id = i
+                            break
+                        }
+                    }
+                    let myData = responseString![id]
+                    self.fullCountryDetailsDelegates?.getData(data: myData)
+                }
+                else {
+                    // Failure
+                    self.fullCountryDetailsDelegates?.errors(eroor: error!)
+                }
+            }.resume()
+            session.finishTasksAndInvalidate()
+        }
+        else{
+            print("Somthing is bad")
+        }
     }
 }
